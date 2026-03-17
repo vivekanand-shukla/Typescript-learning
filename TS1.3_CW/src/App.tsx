@@ -65,7 +65,7 @@ console.log(getArea({ kind : "rectangle",
   }
 convertPersionToStudnet({name:"vivek", age:23 , })
 
-function doubleNumber(number : number[] , ) : number[]{
+function doubleNumber(number : number[]  ) : number[]{
    return number.map(number =>number*2 )
 }
 doubleNumber([2,3,4])
