@@ -40,7 +40,7 @@ const App = () => {
 
 
   // 6
-  type User =| { role: "admin" }| { role: "user" }| { role: "guest" };
+  type User = { role: "admin" }| { role: "user" }| { role: "guest" };
 
   function getUserRole(user: User): string {
     if (user.role === "admin") {
