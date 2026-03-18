@@ -1,4 +1,5 @@
 import React from 'react'
+import "./score.css"
 interface ScoreProps {
     currentScore: number,
     totalScore : number

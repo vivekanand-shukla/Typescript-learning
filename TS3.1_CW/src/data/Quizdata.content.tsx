@@ -1,33 +1,30 @@
-export const QuizData = [
-  {
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    correctOption: 0
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    correctOption: 1
-  },
-  {
-    question: "What is the largest mammal?",
-    options: ["Elephant", "Giraffe", "Blue Whale", "Hippopotamus"],
-    correctOption: 2
-  },
-  {
-    question: "Who painted the Mona Lisa?",
-    options: [
-      "Vincent van Gogh",
-      "Leonardo da Vinci",
-      "Pablo Picasso",
-      "Michelangelo"
-    ],
-    correctOption: 1
-  },
-  {
-    question: "Which gas do plants absorb from the atmosphere?",
-    options: ["Oxygen", "Carbon Dioxide", "Hydrogen", "Nitrogen"],
-    correctOption: 1
-  }
-];
+export const QuizData: {
+  question: string
+  options: string[]
+  correctOption: number
+}[] = []
 
+// fetch 10 questions from API
+fetch("https://opentdb.com/api.php?amount=10&type=multiple")
+  .then(res => res.json())
+  .then(data => {
+    const formatted = data.results.map((q: any) => {
+      const options = [...q.incorrect_answers]
+
+      // random correct answer position
+      const correctIndex = Math.floor(Math.random() * 4)
+      options.splice(correctIndex, 0, q.correct_answer)
+
+      return {
+        question: q.question,
+        options: options,
+        correctOption: correctIndex
+      }
+    })
+
+    // fill exported array (IMPORTANT 🔥)
+    QuizData.push(...formatted)
+  })
+  .catch(err => {
+    console.error("Error fetching quiz:", err)
+  })
